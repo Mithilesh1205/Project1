@@ -1,0 +1,335 @@
+/* ===== NEON ECE TOOLKIT ===== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Arial", sans-serif;
+    background: #050816;
+    color: #eafaff;
+    line-height: 1.6;
+
+    /* Neon outline around the entire website */
+    border: 2px solid #00bfff;
+    box-shadow: inset 0 0 18px rgba(0, 191, 255, 0.12);
+    min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+
+header {
+    text-align: center;
+    padding: 35px 20px;
+    background: linear-gradient(135deg, #081326, #101c38);
+    border-bottom: 2px solid #00bfff;
+    box-shadow: 0 0 18px rgba(0, 191, 255, 0.35);
+}
+
+header h1 {
+    margin: 0 0 10px;
+    color: #00d9ff;
+    font-size: clamp(30px, 5vw, 44px);
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 3px;
+    text-shadow: 0 0 8px #00bfff, 0 0 22px rgba(0, 191, 255, 0.65);
+}
+
+header p {
+    color: #a8dfff;
+    margin: 0;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/* ===== MAIN CONTENT ===== */
+
+main {
+    max-width: 1150px;
+    margin: 45px auto;
+    padding: 0 24px;
+}
+
+h2 {
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 1.5px;
+    color: #00d9ff;
+}
+
+.tools h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    font-size: 28px;
+}
+
+/* ===== TOOL GRID ===== */
+
+.tools {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px;
+}
+
+/* ===== NEON TOOL CARDS ===== */
+
+.tool-card {
+    position: relative;
+    background: linear-gradient(145deg, #101b32, #0a1225);
+    padding: 26px;
+    border: 1px solid #087da8;
+    border-radius: 12px;
+    box-shadow:
+        0 0 8px rgba(0, 191, 255, 0.12),
+        inset 0 0 12px rgba(0, 191, 255, 0.035);
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.tool-card h3 {
+    color: #00d9ff;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 0.7px;
+}
+
+.tool-card p {
+    color: #c5d9f2;
+    line-height: 1.7;
+}
+
+/* Hover effect for mouse users */
+@media (hover: hover) and (pointer: fine) {
+    .tool-card:hover {
+        transform: translateY(-5px);
+        border-color: #00e5ff;
+        box-shadow:
+            0 0 12px rgba(0, 191, 255, 0.5),
+            0 0 28px rgba(0, 191, 255, 0.15),
+            inset 0 0 14px rgba(0, 191, 255, 0.08);
+    }
+}
+
+/* ===== NEON BUTTONS ===== */
+
+button {
+    position: relative;
+    overflow: hidden;
+    background: #075985;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: 1px solid #00d9ff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    box-shadow: 0 0 8px rgba(0, 191, 255, 0.25);
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+button:hover {
+    background: #0369a1;
+    box-shadow:
+        0 0 10px #00bfff,
+        0 0 22px rgba(0, 191, 255, 0.55);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+/* ===== ELECTRIC GLITCH EFFECT ===== */
+
+button.glitch {
+    animation: electricGlitch 0.35s steps(2, end);
+}
+
+@keyframes electricGlitch {
+    0% {
+        transform: translate(0);
+        filter: brightness(1);
+        box-shadow: 0 0 8px #00bfff;
+    }
+
+    20% {
+        transform: translate(-2px, 1px) skewX(-4deg);
+        filter: brightness(1.8);
+        box-shadow: 3px 0 #00ffff, -3px 0 #2563eb;
+    }
+
+    40% {
+        transform: translate(2px, -1px) skewX(3deg);
+        box-shadow: 0 0 18px #00e5ff;
+    }
+
+    60% {
+        transform: translate(-1px, 1px);
+        filter: brightness(1.5);
+    }
+
+    80% {
+        transform: translate(1px, -1px) skewX(-2deg);
+        box-shadow: -2px 0 #00ffff, 2px 0 #2563eb;
+    }
+
+    100% {
+        transform: translate(0);
+        filter: brightness(1);
+        box-shadow: 0 0 8px #00bfff;
+    }
+}
+
+/* Keyboard accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #00e5ff;
+    outline-offset: 3px;
+}
+
+/* ===== CALCULATOR PANELS ===== */
+
+.converter {
+    display: none;
+    max-width: 650px;
+    margin: 45px auto;
+    background: linear-gradient(145deg, #101b32, #080f20);
+    padding: 28px;
+    border: 1px solid #00bfff;
+    border-radius: 12px;
+    box-shadow:
+        0 0 12px rgba(0, 191, 255, 0.25),
+        inset 0 0 15px rgba(0, 191, 255, 0.04);
+}
+
+.converter.active {
+    display: block;
+}
+
+.converter h2 {
+    text-align: center;
+    margin-top: 0;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
+}
+
+.converter label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: #b8eaff;
+    font-weight: bold;
+}
+
+.converter input,
+.converter select,
+.converter textarea {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #087da8;
+    border-radius: 6px;
+    background: #060d1b;
+    color: #eafaff;
+    font-size: 16px;
+}
+
+.converter input:focus,
+.converter select:focus,
+.converter textarea:focus {
+    border-color: #00e5ff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
+}
+
+.converter button {
+    margin-top: 12px;
+}
+
+.converter button + button {
+    margin-left: 8px;
+}
+
+#result,
+#ohmsResult,
+#resistanceResult,
+#colorResult {
+    margin-top: 20px;
+    padding: 15px;
+    background: #060d1b;
+    border: 1px solid #087da8;
+    border-radius: 8px;
+    color: #00e5ff;
+    overflow-wrap: anywhere;
+    font-size: 17px;
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+    text-align: center;
+    padding: 24px 16px;
+    margin-top: 45px;
+    background: #081326;
+    border-top: 1px solid #00bfff;
+    color: #8fc8e8;
+    font-style: italic;
+}
+
+/* ===== MOBILE RESPONSIVENESS ===== */
+
+@media (max-width: 650px) {
+    .tools {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+
+    main {
+        margin-top: 25px;
+        padding: 0 15px;
+    }
+
+    .tool-card,
+    .converter {
+        padding: 20px;
+    }
+
+    .converter button + button {
+        margin-left: 0;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    button.glitch {
+        animation: none;
+    }
+}

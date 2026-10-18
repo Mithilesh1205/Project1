@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECE Toolkit</title>
+
+    <!-- Connect HTML to CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>ECE Toolkit</h1>
+        <p>Your Pocket Engineering Lab</p>
+    </header>
+
+    <main>
+        <section class="tools">
+            <h2>Engineering Tools</h2>
+
+            <div class="tool-card">
+                <h3>Unit Converter</h3>
+                <p>Convert voltage, resistance and frequency.</p>
+                <button onclick="openConverter()">Open Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h3>Ohm's Law Calculator</h3>
+                <p>Calculate voltage, current and resistance.</p>
+                <button onclick="openOhmsLaw()">Open Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h3>Resistor Color Code Calculator</h3>
+                <p>Decode resistor color bands to find resistance and tolerance.</p>
+                <button onclick="openColorCalculator()">Open Tool</button>
+            </div>
+
+            <div class="tool-card">
+                <h3>Series & Parallel Calculator</h3>
+                <p>Calculate equivalent resistance in series or parallel circuits.</p>
+                <button onclick="openResistanceCalculator()">Open Tool</button>
+            </div>
+        </section>
+
+        <section id="converter" class="tool-card converter">
+            <h2>Unit Converter</h2>
+
+            <label for="category">Category</label>
+            <select id="category">
+                <option value="Voltage">Voltage</option>
+                <option value="Resistance">Resistance</option>
+                <option value="Frequency">Frequency</option>
+            </select>
+
+            <label for="value">Enter value</label>
+            <input type="number" id="value" placeholder="Enter a number">
+
+            <label for="fromUnit">Convert from</label>
+            <select id="fromUnit"></select>
+
+            <label for="toUnit">Convert to</label>
+            <select id="toUnit"></select>
+
+            <button id="convertBtn">Convert</button>
+
+            <h3 id="result">Your result will appear here.</h3>
+        </section>
+        <!-- Ohm's Law Calculator -->
+        <section id="ohmsCalculator" class="tool-card converter">
+             <h2>Ohm's Law Calculator</h2>
+
+             <label for="voltage">Voltage (V)</label>
+             <input type="number" id="voltage" min="0" step="any"
+                    placeholder="Enter voltage">
+
+             <label for="current">Current (A)</label>
+             <input type="number" id="current" min="0" step="any"
+                    placeholder="Enter current">
+
+             <label for="resistance">Resistance (Ω)</label>
+             <input type="number" id="resistance" min="0" step="any"
+                    placeholder="Enter resistance">
+
+             <button onclick="calculateOhmsLaw()">Calculate</button>
+
+             <h3 id="ohmsResult">Enter any two values to calculate the third.</h3>
+             <button onclick="clearOhmsLaw()">Clear</button>
+        </section>
+        <!-- Series and Parallel Resistance Calculator -->
+        <section id="resistanceCalculator" class="tool-card converter">
+
+             <h2>Series & Parallel Calculator</h2>
+
+             <label for="circuitType">Circuit Type</label>
+             <select id="circuitType">
+                 <option value="series">Series Circuit</option>
+                 <option value="parallel">Parallel Circuit</option>
+             </select>
+
+             <label for="resistorValues">
+                 Resistor Values (Ω)
+             </label>
+   
+             <textarea
+                 id="resistorValues"
+                 rows="5"
+                 placeholder="Enter resistor values separated by commas&#10;Example: 100, 220, 330"
+             ></textarea>
+
+             <button onclick="calculateResistance()">Calculate Resistance</button>
+
+             <h3 id="resistanceResult">
+                  Your equivalent resistance will appear here.
+             </h3>
+
+             <button onclick="clearResistance()">Clear</button>
+
+        </section>
+        <!-- Resistor Color Code Calculator -->
+        <section id="colorCalculator" class="tool-card converter">
+
+              <h2>Resistor Color Code Calculator</h2>
+
+              <p>Select the four color bands printed on your resistor.</p>
+
+              <label for="band1">First Band (First Digit)</label>
+              <select id="band1" class="color-band"></select>
+
+              <label for="band2">Second Band (Second Digit)</label>
+              <select id="band2" class="color-band"></select>
+
+              <label for="band3">Third Band (Multiplier)</label>
+              <select id="band3" class="color-band"></select>
+
+              <label for="band4">Fourth Band (Tolerance)</label>
+              <select id="band4" class="color-band"></select>
+
+              <button onclick="calculateColorCode()">Calculate Resistance</button>
+
+              <h3 id="colorResult">Your resistance will appear here.</h3>
+
+              <button onclick="clearColorCalculator()">Clear</button>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>ECE Toolkit | Built by an aspiring ECE engineer</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
