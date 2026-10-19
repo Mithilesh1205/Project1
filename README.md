@@ -86,7 +86,7 @@ I would like to add more useful tools for ECE students in the future, such as:
 
 ## Live Website
 
-[Click here to visit ECE Toolkit](YOUR_VERCEL_URL)
+https://project1-three-omega-76.vercel.app/
 
 ---
 
