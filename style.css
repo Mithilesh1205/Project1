@@ -1,335 +1,320 @@
-/* ===== NEON ECE TOOLKIT ===== */
+/* ==========================================
+   ECE TOOLKIT — NEON CYBERPUNK THEME 2.0
+   ========================================== */
 
-* {
-    box-sizing: border-box;
+:root {
+    --neon-cyan: #00f5ff;
+    --neon-blue: #1685ff;
+    --neon-purple: #b026ff;
+    --neon-pink: #ff2bd6;
+    --text-main: #f4f8ff;
+    --text-muted: #c2d5f5;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
+/* Animated neon background */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Arial", sans-serif;
-    background: #050816;
-    color: #eafaff;
-    line-height: 1.6;
+    color: var(--text-main);
 
-    /* Neon outline around the entire website */
-    border: 2px solid #00bfff;
-    box-shadow: inset 0 0 18px rgba(0, 191, 255, 0.12);
-    min-height: 100vh;
+    background:
+        radial-gradient(
+            ellipse at 15% 15%,
+            rgba(0, 100, 255, 0.18),
+            transparent 38%
+        ),
+        radial-gradient(
+            ellipse at 85% 45%,
+            rgba(176, 38, 255, 0.14),
+            transparent 40%
+        ),
+        linear-gradient(135deg, #030712, #080d20 55%, #100820);
+
+    border-color: var(--neon-cyan);
 }
 
-/* ===== HEADER ===== */
-
+/* Header with a vibrant gradient */
 header {
-    text-align: center;
-    padding: 35px 20px;
-    background: linear-gradient(135deg, #081326, #101c38);
-    border-bottom: 2px solid #00bfff;
-    box-shadow: 0 0 18px rgba(0, 191, 255, 0.35);
-}
-
-header h1 {
-    margin: 0 0 10px;
-    color: #00d9ff;
-    font-size: clamp(30px, 5vw, 44px);
-    text-transform: uppercase;
-    font-style: italic;
-    letter-spacing: 3px;
-    text-shadow: 0 0 8px #00bfff, 0 0 22px rgba(0, 191, 255, 0.65);
-}
-
-header p {
-    color: #a8dfff;
-    margin: 0;
-    font-style: italic;
-    letter-spacing: 1px;
-}
-
-/* ===== MAIN CONTENT ===== */
-
-main {
-    max-width: 1150px;
-    margin: 45px auto;
-    padding: 0 24px;
-}
-
-h2 {
-    text-transform: uppercase;
-    font-style: italic;
-    letter-spacing: 1.5px;
-    color: #00d9ff;
-}
-
-.tools h2 {
-    text-align: center;
-    margin-bottom: 32px;
-    font-size: 28px;
-}
-
-/* ===== TOOL GRID ===== */
-
-.tools {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 25px;
-}
-
-/* ===== NEON TOOL CARDS ===== */
-
-.tool-card {
-    position: relative;
-    background: linear-gradient(145deg, #101b32, #0a1225);
-    padding: 26px;
-    border: 1px solid #087da8;
-    border-radius: 12px;
-    box-shadow:
-        0 0 8px rgba(0, 191, 255, 0.12),
-        inset 0 0 12px rgba(0, 191, 255, 0.035);
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.tool-card h3 {
-    color: #00d9ff;
-    margin-top: 0;
-    text-transform: uppercase;
-    font-style: italic;
-    letter-spacing: 0.7px;
-}
-
-.tool-card p {
-    color: #c5d9f2;
-    line-height: 1.7;
-}
-
-/* Hover effect for mouse users */
-@media (hover: hover) and (pointer: fine) {
-    .tool-card:hover {
-        transform: translateY(-5px);
-        border-color: #00e5ff;
-        box-shadow:
-            0 0 12px rgba(0, 191, 255, 0.5),
-            0 0 28px rgba(0, 191, 255, 0.15),
-            inset 0 0 14px rgba(0, 191, 255, 0.08);
-    }
-}
-
-/* ===== NEON BUTTONS ===== */
-
-button {
     position: relative;
     overflow: hidden;
-    background: #075985;
-    color: #ffffff;
-    padding: 12px 20px;
-    border: 1px solid #00d9ff;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(0, 80, 180, 0.24),
+            rgba(100, 0, 180, 0.22),
+            rgba(0, 200, 255, 0.13)
+        ),
+        #081226;
+
+    border-bottom: 2px solid var(--neon-cyan);
+
+    box-shadow:
+        0 8px 35px rgba(0, 180, 255, 0.18),
+        0 2px 25px rgba(176, 38, 255, 0.12);
+}
+
+/* Main title */
+header h1 {
+    color: var(--neon-cyan);
+
     text-transform: uppercase;
-    letter-spacing: 0.6px;
-    box-shadow: 0 0 8px rgba(0, 191, 255, 0.25);
-    transition:
-        background 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
-}
-
-button:hover {
-    background: #0369a1;
-    box-shadow:
-        0 0 10px #00bfff,
-        0 0 22px rgba(0, 191, 255, 0.55);
-}
-
-button:active {
-    transform: scale(0.97);
-}
-
-/* ===== ELECTRIC GLITCH EFFECT ===== */
-
-button.glitch {
-    animation: electricGlitch 0.35s steps(2, end);
-}
-
-@keyframes electricGlitch {
-    0% {
-        transform: translate(0);
-        filter: brightness(1);
-        box-shadow: 0 0 8px #00bfff;
-    }
-
-    20% {
-        transform: translate(-2px, 1px) skewX(-4deg);
-        filter: brightness(1.8);
-        box-shadow: 3px 0 #00ffff, -3px 0 #2563eb;
-    }
-
-    40% {
-        transform: translate(2px, -1px) skewX(3deg);
-        box-shadow: 0 0 18px #00e5ff;
-    }
-
-    60% {
-        transform: translate(-1px, 1px);
-        filter: brightness(1.5);
-    }
-
-    80% {
-        transform: translate(1px, -1px) skewX(-2deg);
-        box-shadow: -2px 0 #00ffff, 2px 0 #2563eb;
-    }
-
-    100% {
-        transform: translate(0);
-        filter: brightness(1);
-        box-shadow: 0 0 8px #00bfff;
-    }
-}
-
-/* Keyboard accessibility */
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-    outline: 2px solid #00e5ff;
-    outline-offset: 3px;
-}
-
-/* ===== CALCULATOR PANELS ===== */
-
-.converter {
-    display: none;
-    max-width: 650px;
-    margin: 45px auto;
-    background: linear-gradient(145deg, #101b32, #080f20);
-    padding: 28px;
-    border: 1px solid #00bfff;
-    border-radius: 12px;
-    box-shadow:
-        0 0 12px rgba(0, 191, 255, 0.25),
-        inset 0 0 15px rgba(0, 191, 255, 0.04);
-}
-
-.converter.active {
-    display: block;
-}
-
-.converter h2 {
-    text-align: center;
-    margin-top: 0;
-    text-shadow: 0 0 10px rgba(0, 191, 255, 0.4);
-}
-
-.converter label {
-    display: block;
-    margin-top: 16px;
-    margin-bottom: 8px;
-    color: #b8eaff;
-    font-weight: bold;
-}
-
-.converter input,
-.converter select,
-.converter textarea {
-    display: block;
-    width: 100%;
-    min-height: 44px;
-    padding: 12px;
-    margin-bottom: 12px;
-    border: 1px solid #087da8;
-    border-radius: 6px;
-    background: #060d1b;
-    color: #eafaff;
-    font-size: 16px;
-}
-
-.converter input:focus,
-.converter select:focus,
-.converter textarea:focus {
-    border-color: #00e5ff;
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 191, 255, 0.25);
-}
-
-.converter button {
-    margin-top: 12px;
-}
-
-.converter button + button {
-    margin-left: 8px;
-}
-
-#result,
-#ohmsResult,
-#resistanceResult,
-#colorResult {
-    margin-top: 20px;
-    padding: 15px;
-    background: #060d1b;
-    border: 1px solid #087da8;
-    border-radius: 8px;
-    color: #00e5ff;
-    overflow-wrap: anywhere;
-    font-size: 17px;
-}
-
-/* ===== FOOTER ===== */
-
-footer {
-    text-align: center;
-    padding: 24px 16px;
-    margin-top: 45px;
-    background: #081326;
-    border-top: 1px solid #00bfff;
-    color: #8fc8e8;
     font-style: italic;
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 5px #00f5ff,
+        0 0 15px rgba(0, 245, 255, 0.85),
+        0 0 35px rgba(0, 130, 255, 0.7);
+
+    animation: titlePulse 3s ease-in-out infinite alternate;
 }
 
-/* ===== MOBILE RESPONSIVENESS ===== */
-
-@media (max-width: 650px) {
-    .tools {
-        grid-template-columns: 1fr;
+@keyframes titlePulse {
+    from {
+        text-shadow:
+            0 0 5px #00f5ff,
+            0 0 12px rgba(0, 245, 255, 0.6);
     }
 
-    header h1 {
-        font-size: 30px;
-        letter-spacing: 2px;
-    }
-
-    main {
-        margin-top: 25px;
-        padding: 0 15px;
-    }
-
-    .tool-card,
-    .converter {
-        padding: 20px;
-    }
-
-    .converter button + button {
-        margin-left: 0;
+    to {
+        text-shadow:
+            0 0 8px #00f5ff,
+            0 0 22px #1685ff,
+            0 0 40px rgba(176, 38, 255, 0.65);
     }
 }
 
-/* Respect reduced-motion preferences */
+/* Subtitle */
+header p {
+    color: #d6e8ff;
+    letter-spacing: 1.5px;
+}
+
+/* Section heading */
+.tools > h2 {
+    color: #ffffff;
+
+    background: linear-gradient(
+        90deg,
+        #00f5ff,
+        #4d9fff,
+        #c56bff,
+        #ff54df
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: none;
+    letter-spacing: 3px;
+}
+
+/* Brighter cards */
+.tool-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(15, 32, 65, 0.97),
+            rgba(9, 13, 36, 0.98)
+        );
+
+    border: 1px solid rgba(0, 245, 255, 0.65);
+    border-radius: 16px;
+
+    box-shadow:
+        0 0 12px rgba(0, 180, 255, 0.09),
+        inset 0 0 20px rgba(0, 100, 255, 0.04);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+/* Moving color glow inside each card */
+.tool-card::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    width: 180px;
+    height: 180px;
+    right: -90px;
+    bottom: -100px;
+
+    background: radial-gradient(
+        circle,
+        rgba(176, 38, 255, 0.24),
+        rgba(0, 245, 255, 0.08) 45%,
+        transparent 70%
+    );
+
+    pointer-events: none;
+    transition: transform 0.4s ease;
+}
+
+/* Neon gradient accent */
+.tool-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        #00f5ff,
+        #1685ff,
+        #b026ff,
+        #ff2bd6
+    );
+
+    opacity: 1;
+}
+
+/* Hover: bright electric glow */
+.tool-card:hover {
+    transform: translateY(-7px);
+
+    border-color: #00f5ff;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(18, 43, 83, 0.99),
+            rgba(22, 14, 55, 0.99)
+        );
+
+    box-shadow:
+        0 0 12px rgba(0, 245, 255, 0.28),
+        0 0 30px rgba(22, 133, 255, 0.2),
+        0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.tool-card:hover::after {
+    transform: translate(-25px, -25px) scale(1.3);
+}
+
+/* Card titles */
+.tool-card h3 {
+    color: #00f5ff;
+
+    text-transform: uppercase;
+    font-style: italic;
+    letter-spacing: 1.2px;
+
+    text-shadow: 0 0 12px rgba(0, 245, 255, 0.35);
+}
+
+/* Descriptions */
+.tool-card p {
+    color: var(--text-muted);
+}
+
+/* Vibrant buttons */
+.tool-card button {
+    position: relative;
+    overflow: hidden;
+
+    color: #ffffff;
+
+    background: linear-gradient(
+        110deg,
+        #007cf0,
+        #00c6ff
+    );
+
+    border: 1px solid #00f5ff;
+    border-radius: 8px;
+
+    box-shadow:
+        0 0 10px rgba(0, 198, 255, 0.22),
+        inset 0 0 8px rgba(255, 255, 255, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.tool-card button:hover {
+    background: linear-gradient(
+        110deg,
+        #1685ff,
+        #8c36ff,
+        #e52bff
+    );
+
+    border-color: #ffffff;
+
+    box-shadow:
+        0 0 12px rgba(0, 245, 255, 0.55),
+        0 0 25px rgba(176, 38, 255, 0.35);
+
+    transform: translateY(-2px);
+    filter: brightness(1.15);
+}
+
+/* Inputs and dropdowns */
+input,
+select,
+textarea {
+    color: #f4f8ff;
+
+    background: #0a142b;
+
+    border: 1px solid #2468a9;
+    border-radius: 7px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #00f5ff;
+
+    box-shadow:
+        0 0 0 2px rgba(0, 245, 255, 0.12),
+        0 0 14px rgba(0, 245, 255, 0.18);
+}
+
+/* Calculator output panels */
+#result,
+#ohmResult,
+#resistanceResult,
+#colorResult,
+.result {
+    color: #7dffdc;
+}
+
+/* Selected text */
+::selection {
+    color: #ffffff;
+    background: rgba(176, 38, 255, 0.65);
+}
+
+/* Smooth hover effects without motion when disabled */
 @media (prefers-reduced-motion: reduce) {
+    header h1 {
+        animation: none;
+    }
+
     *,
     *::before,
     *::after {
         scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-    }
-
-    button.glitch {
-        animation: none;
+        transition: none !important;
     }
 }
