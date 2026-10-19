@@ -1,164 +1,149 @@
-/* ==========================================
-   ECE TOOLKIT — NEON CYBERPUNK THEME 2.0
-   ========================================== */
+/* =========================================
+   ECE TOOLKIT — NEON ENGINEERING DASHBOARD
+   ========================================= */
 
 :root {
-    --neon-cyan: #00f5ff;
-    --neon-blue: #1685ff;
-    --neon-purple: #b026ff;
-    --neon-pink: #ff2bd6;
-    --text-main: #f4f8ff;
-    --text-muted: #c2d5f5;
+    --bg: #050816;
+    --panel: #0c1630;
+    --cyan: #00f5ff;
+    --blue: #1685ff;
+    --purple: #a855f7;
+    --pink: #ff36d1;
+    --white: #f3f7ff;
+    --muted: #c1d3f0;
 }
 
-/* Animated neon background */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    color: var(--text-main);
+    margin: 0;
+    min-height: 100vh;
+    color: var(--white);
+    font-family: "Segoe UI", Arial, sans-serif;
 
     background:
         radial-gradient(
-            ellipse at 15% 15%,
-            rgba(0, 100, 255, 0.18),
-            transparent 38%
+            circle at 10% 10%,
+            rgba(0, 140, 255, 0.17),
+            transparent 32%
         ),
         radial-gradient(
-            ellipse at 85% 45%,
-            rgba(176, 38, 255, 0.14),
-            transparent 40%
+            circle at 90% 40%,
+            rgba(168, 85, 247, 0.13),
+            transparent 32%
         ),
-        linear-gradient(135deg, #030712, #080d20 55%, #100820);
+        var(--bg);
 
-    border-color: var(--neon-cyan);
+    border: 2px solid rgba(0, 245, 255, 0.75);
 }
 
-/* Header with a vibrant gradient */
+/* ========== HEADER ========== */
+
 header {
-    position: relative;
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            120deg,
-            rgba(0, 80, 180, 0.24),
-            rgba(100, 0, 180, 0.22),
-            rgba(0, 200, 255, 0.13)
-        ),
-        #081226;
-
-    border-bottom: 2px solid var(--neon-cyan);
-
-    box-shadow:
-        0 8px 35px rgba(0, 180, 255, 0.18),
-        0 2px 25px rgba(176, 38, 255, 0.12);
-}
-
-/* Main title */
-header h1 {
-    color: var(--neon-cyan);
-
-    text-transform: uppercase;
-    font-style: italic;
-    letter-spacing: 5px;
-
-    text-shadow:
-        0 0 5px #00f5ff,
-        0 0 15px rgba(0, 245, 255, 0.85),
-        0 0 35px rgba(0, 130, 255, 0.7);
-
-    animation: titlePulse 3s ease-in-out infinite alternate;
-}
-
-@keyframes titlePulse {
-    from {
-        text-shadow:
-            0 0 5px #00f5ff,
-            0 0 12px rgba(0, 245, 255, 0.6);
-    }
-
-    to {
-        text-shadow:
-            0 0 8px #00f5ff,
-            0 0 22px #1685ff,
-            0 0 40px rgba(176, 38, 255, 0.65);
-    }
-}
-
-/* Subtitle */
-header p {
-    color: #d6e8ff;
-    letter-spacing: 1.5px;
-}
-
-/* Section heading */
-.tools > h2 {
-    color: #ffffff;
+    text-align: center;
+    padding: 42px 20px 32px;
 
     background: linear-gradient(
-        90deg,
-        #00f5ff,
-        #4d9fff,
-        #c56bff,
-        #ff54df
+        120deg,
+        #091b39,
+        #111034,
+        #072b42
     );
 
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    border-bottom: 2px solid var(--cyan);
 
-    text-shadow: none;
-    letter-spacing: 3px;
+    box-shadow: 0 5px 30px rgba(0, 245, 255, 0.15);
 }
 
-/* Brighter cards */
+header h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: 5px;
+    color: var(--cyan);
+
+    text-shadow:
+        0 0 8px rgba(0, 245, 255, 0.9),
+        0 0 25px rgba(0, 140, 255, 0.65);
+}
+
+header p {
+    margin: 16px 0 0;
+    color: #d8e8ff;
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+}
+
+/* ========== TOOLS GRID ========== */
+
+.tools {
+    width: min(1100px, 92%);
+    margin: 38px auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* Heading occupies the complete row */
+.tools > h2 {
+    grid-column: 1 / -1;
+    margin: 0 0 4px;
+    padding: 12px;
+
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    font-style: italic;
+    letter-spacing: 3px;
+
+    color: var(--cyan);
+    text-shadow: 0 0 14px rgba(0, 245, 255, 0.4);
+}
+
+/* ========== TOOL CARDS ========== */
+
 .tool-card {
     position: relative;
-    isolation: isolate;
     overflow: hidden;
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(15, 32, 65, 0.97),
-            rgba(9, 13, 36, 0.98)
-        );
+    width: 100%;
+    min-width: 0;
+    min-height: 205px;
+    padding: 26px;
 
-    border: 1px solid rgba(0, 245, 255, 0.65);
-    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
 
-    box-shadow:
-        0 0 12px rgba(0, 180, 255, 0.09),
-        inset 0 0 20px rgba(0, 100, 255, 0.04);
-
-    transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        background 0.3s ease;
-}
-
-/* Moving color glow inside each card */
-.tool-card::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-
-    width: 180px;
-    height: 180px;
-    right: -90px;
-    bottom: -100px;
-
-    background: radial-gradient(
-        circle,
-        rgba(176, 38, 255, 0.24),
-        rgba(0, 245, 255, 0.08) 45%,
-        transparent 70%
+    background: linear-gradient(
+        135deg,
+        rgba(18, 37, 72, 0.96),
+        rgba(11, 13, 38, 0.98)
     );
 
-    pointer-events: none;
-    transition: transform 0.4s ease;
+    border: 1px solid rgba(0, 245, 255, 0.6);
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.2),
+        inset 0 0 20px rgba(0, 140, 255, 0.035);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-/* Neon gradient accent */
+/* Colorful top accent */
 .tool-card::before {
     content: "";
     position: absolute;
@@ -170,151 +155,232 @@ header p {
 
     background: linear-gradient(
         90deg,
-        #00f5ff,
-        #1685ff,
-        #b026ff,
-        #ff2bd6
+        var(--cyan),
+        var(--blue),
+        var(--purple),
+        var(--pink)
+    );
+}
+
+/* Decorative glow */
+.tool-card::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -100px;
+    bottom: -110px;
+
+    background: radial-gradient(
+        circle,
+        rgba(168, 85, 247, 0.2),
+        transparent 70%
     );
 
-    opacity: 1;
+    pointer-events: none;
 }
 
-/* Hover: bright electric glow */
 .tool-card:hover {
-    transform: translateY(-7px);
-
-    border-color: #00f5ff;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(18, 43, 83, 0.99),
-            rgba(22, 14, 55, 0.99)
-        );
+    transform: translateY(-5px);
+    border-color: var(--cyan);
 
     box-shadow:
-        0 0 12px rgba(0, 245, 255, 0.28),
-        0 0 30px rgba(22, 133, 255, 0.2),
-        0 12px 35px rgba(0, 0, 0, 0.3);
+        0 0 12px rgba(0, 245, 255, 0.2),
+        0 10px 30px rgba(22, 133, 255, 0.15);
 }
 
-.tool-card:hover::after {
-    transform: translate(-25px, -25px) scale(1.3);
-}
-
-/* Card titles */
 .tool-card h3 {
-    color: #00f5ff;
+    margin: 0;
 
-    text-transform: uppercase;
+    color: var(--cyan);
+    font-size: 1.15rem;
+    line-height: 1.5;
     font-style: italic;
-    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 
-    text-shadow: 0 0 12px rgba(0, 245, 255, 0.35);
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.25);
 }
 
-/* Descriptions */
 .tool-card p {
-    color: var(--text-muted);
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
 }
 
-/* Vibrant buttons */
-.tool-card button {
-    position: relative;
-    overflow: hidden;
+/* ========== BUTTONS ========== */
+
+button {
+    padding: 11px 20px;
 
     color: #ffffff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
 
     background: linear-gradient(
         110deg,
-        #007cf0,
-        #00c6ff
+        #087cf0,
+        #00bfe8
     );
 
-    border: 1px solid #00f5ff;
-    border-radius: 8px;
+    border: 1px solid var(--cyan);
+    border-radius: 7px;
 
-    box-shadow:
-        0 0 10px rgba(0, 198, 255, 0.22),
-        inset 0 0 8px rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+
+    box-shadow: 0 0 12px rgba(0, 191, 232, 0.15);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease,
-        filter 0.2s ease;
+        filter 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.tool-card button:hover {
+button:hover {
     background: linear-gradient(
         110deg,
-        #1685ff,
-        #8c36ff,
-        #e52bff
+        #087cf0,
+        #873cff,
+        #d52bdf
     );
 
-    border-color: #ffffff;
-
     box-shadow:
-        0 0 12px rgba(0, 245, 255, 0.55),
-        0 0 25px rgba(176, 38, 255, 0.35);
+        0 0 14px rgba(0, 245, 255, 0.4),
+        0 0 22px rgba(168, 85, 247, 0.2);
 
     transform: translateY(-2px);
-    filter: brightness(1.15);
+    filter: brightness(1.1);
 }
 
-/* Inputs and dropdowns */
+/* ========== CALCULATOR PANELS ========== */
+
+/*
+   Keep every calculator hidden until its existing
+   JavaScript activates it using the "active" class.
+*/
+
+.converter {
+    display: none;
+}
+
+.converter.active {
+    display: block;
+
+    width: min(900px, 92%);
+    margin: 30px auto;
+    padding: 26px;
+
+    color: var(--white);
+
+    background: linear-gradient(
+        135deg,
+        rgba(16, 35, 69, 0.98),
+        rgba(18, 12, 47, 0.98)
+    );
+
+    border: 1px solid rgba(0, 245, 255, 0.7);
+    border-radius: 15px;
+
+    box-shadow:
+        0 0 22px rgba(0, 140, 255, 0.12),
+        inset 0 0 20px rgba(168, 85, 247, 0.04);
+}
+
+/* Calculator headings */
+.converter h2,
+.converter h3 {
+    color: var(--cyan);
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.2);
+}
+
+/* Inputs */
 input,
 select,
 textarea {
-    color: #f4f8ff;
+    max-width: 100%;
+    padding: 9px 11px;
 
-    background: #0a142b;
+    color: var(--white);
+    background-color: #081329;
 
-    border: 1px solid #2468a9;
-    border-radius: 7px;
+    border: 1px solid #3567a5;
+    border-radius: 6px;
 
-    outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    font: inherit;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: #00f5ff;
+    outline: none;
+    border-color: var(--cyan);
 
-    box-shadow:
-        0 0 0 2px rgba(0, 245, 255, 0.12),
-        0 0 14px rgba(0, 245, 255, 0.18);
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.22);
 }
 
-/* Calculator output panels */
-#result,
-#ohmResult,
-#resistanceResult,
-#colorResult,
-.result {
-    color: #7dffdc;
+option {
+    color: var(--white);
+    background: #081329;
 }
 
-/* Selected text */
-::selection {
-    color: #ffffff;
-    background: rgba(176, 38, 255, 0.65);
+/* Calculator labels and result text */
+.converter label,
+.converter p {
+    color: var(--muted);
+    line-height: 1.8;
 }
 
-/* Smooth hover effects without motion when disabled */
-@media (prefers-reduced-motion: reduce) {
+/* Highlight result messages */
+.converter strong,
+.converter output {
+    color: #66ffcf;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+@media (max-width: 700px) {
+    header {
+        padding: 32px 14px 25px;
+    }
+
     header h1 {
-        animation: none;
+        letter-spacing: 3px;
+    }
+
+    .tools {
+        width: 92%;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin: 28px auto;
+    }
+
+    .tools > h2 {
+        grid-column: 1;
+        font-size: 1.35rem;
+        letter-spacing: 2px;
+    }
+
+    .tool-card {
+        min-height: 185px;
+        padding: 22px;
+    }
+
+    .converter.active {
+        padding: 20px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
     }
 
     *,
     *::before,
     *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
     }
 }
