@@ -1,3 +1,79 @@
+// =============================================
+// ECE TOOLKIT — COMPLETE JAVASCRIPT
+// Unit Converter
+// Ohm's Law Calculator
+// Series & Parallel Resistance Calculator
+// Resistor Color Code Calculator
+// =============================================
+
+
+// =============================================
+// 1. UNIVERSAL TOOL OPEN/CLOSE SYSTEM
+// =============================================
+
+function toggleTool(toolId) {
+    const selectedTool = document.getElementById(toolId);
+
+    if (!selectedTool) {
+        console.error("Tool not found:", toolId);
+        return;
+    }
+
+    // Check whether the selected calculator is already open.
+    const isAlreadyOpen = selectedTool.classList.contains("active");
+
+    // Close all calculators.
+    document.querySelectorAll(".converter").forEach(tool => {
+        tool.classList.remove("active");
+    });
+
+    // If it was closed, open it.
+    if (!isAlreadyOpen) {
+        selectedTool.classList.add("active");
+
+        selectedTool.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    } else {
+        // If it was already open, return to the dashboard.
+        document.querySelector(".tools")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+}
+
+
+// Functions called by the dashboard buttons.
+
+function openConverter() {
+    toggleTool("converter");
+}
+
+function openOhmsLaw() {
+    toggleTool("ohmsCalculator");
+}
+
+function openResistanceCalculator() {
+    toggleTool("resistanceCalculator");
+}
+
+function openColorCalculator() {
+    toggleTool("colorCalculator");
+}
+
+
+// Placeholder for tools that are not implemented yet.
+function comingSoon() {
+    alert("This tool is coming soon!");
+}
+
+
+// =============================================
+// 2. UNIT CONVERTER
+// =============================================
+
 const units = {
     Voltage: {
         V: 1,
@@ -18,34 +94,37 @@ const units = {
     }
 };
 
+
 const category = document.getElementById("category");
 const valueInput = document.getElementById("value");
 const fromUnit = document.getElementById("fromUnit");
 const toUnit = document.getElementById("toUnit");
 const convertBtn = document.getElementById("convertBtn");
 const result = document.getElementById("result");
-const converter = document.getElementById("converter");
 
-function openConverter() {
-    converter.classList.add("active");
-    converter.scrollIntoView({ behavior: "smooth" });
-}
-
-function comingSoon() {
-    alert("This tool is coming soon!");
-}
 
 function updateUnits() {
+    if (!category || !fromUnit || !toUnit || !result) {
+        return;
+    }
+
     const selectedUnits = units[category.value];
 
+    if (!selectedUnits) {
+        return;
+    }
+
+    // Clear previous options.
     fromUnit.innerHTML = "";
     toUnit.innerHTML = "";
 
+    // Populate both dropdowns.
     Object.keys(selectedUnits).forEach(unit => {
         fromUnit.add(new Option(unit, unit));
         toUnit.add(new Option(unit, unit));
     });
 
+    // Select a different target unit when possible.
     if (toUnit.options.length > 1) {
         toUnit.selectedIndex = 1;
     }
@@ -53,10 +132,22 @@ function updateUnits() {
     result.textContent = "Your result will appear here.";
 }
 
+
 function convert() {
+    if (
+        !category ||
+        !valueInput ||
+        !fromUnit ||
+        !toUnit ||
+        !result
+    ) {
+        return;
+    }
+
     const rawValue = valueInput.value;
     const value = Number(rawValue);
 
+    // Validate the input.
     if (rawValue.trim() === "" || !Number.isFinite(value)) {
         result.textContent = "Please enter a valid number.";
         return;
@@ -65,27 +156,55 @@ function convert() {
     const selectedUnits = units[category.value];
 
     const answer =
-        value * selectedUnits[fromUnit.value] /
+        value *
+        selectedUnits[fromUnit.value] /
         selectedUnits[toUnit.value];
+
+    if (!Number.isFinite(answer)) {
+        result.textContent = "The result is too large to calculate.";
+        return;
+    }
 
     const roundedAnswer = Number(answer.toPrecision(10));
 
     result.textContent =
-        `${value} ${fromUnit.value} = ${roundedAnswer} ${toUnit.value}`;
+        `${value} ${fromUnit.value} = ` +
+        `${roundedAnswer} ${toUnit.value}`;
 }
 
-category.addEventListener("change", updateUnits);
-convertBtn.addEventListener("click", convert);
 
-updateUnits();
+// Register Unit Converter events.
+if (category) {
+    category.addEventListener("change", updateUnits);
+}
 
-// ===== OHM'S LAW CALCULATOR =====
+if (convertBtn) {
+    convertBtn.addEventListener("click", convert);
+}
+
+
+// =============================================
+// 3. OHM'S LAW CALCULATOR
+// =============================================
+
+// Enter any two of voltage, current and resistance
+// to calculate the third using Ohm's Law.
+
 
 function calculateOhmsLaw() {
     const voltageInput = document.getElementById("voltage");
     const currentInput = document.getElementById("current");
     const resistanceInput = document.getElementById("resistance");
     const ohmsResult = document.getElementById("ohmsResult");
+
+    if (
+        !voltageInput ||
+        !currentInput ||
+        !resistanceInput ||
+        !ohmsResult
+    ) {
+        return;
+    }
 
     const voltageText = voltageInput.value.trim();
     const currentText = currentInput.value.trim();
@@ -96,78 +215,84 @@ function calculateOhmsLaw() {
     const resistance = Number(resistanceText);
 
     const values = [
-        { text: voltageText, value: voltage, name: "Voltage" },
-        { text: currentText, value: current, name: "Current" },
-        { text: resistanceText, value: resistance, name: "Resistance" }
+        {
+            text: voltageText,
+            value: voltage,
+            name: "Voltage"
+        },
+        {
+            text: currentText,
+            value: current,
+            name: "Current"
+        },
+        {
+            text: resistanceText,
+            value: resistance,
+            name: "Resistance"
+        }
     ];
 
-    const knownValues = values.filter(
-        item => item.text !== "" &&
-                Number.isFinite(item.value) &&
-                item.value >= 0
+    const knownValues = values.filter(item =>
+        item.text !== "" &&
+        Number.isFinite(item.value) &&
+        item.value >= 0
     );
 
+    // Exactly two values must be entered.
     if (knownValues.length !== 2) {
         ohmsResult.textContent =
             "Please enter exactly two valid, non-negative values.";
         return;
     }
 
-    let result;
+    let answer;
     let message;
 
+    // Calculate voltage: V = I × R.
     if (voltageText === "") {
+        answer = current * resistance;
+
+        message =
+            `Voltage = ${Number(answer.toPrecision(10))} V`;
+    }
+
+    // Calculate current: I = V / R.
+    else if (currentText === "") {
         if (resistance === 0) {
             ohmsResult.textContent =
                 "Resistance cannot be zero when calculating current.";
             return;
         }
 
-        result = current * resistance;
-        message = `Voltage = ${result} V`;
+        answer = voltage / resistance;
 
-    } else if (currentText === "") {
-        result = resistance === 0
-            ? (voltage === 0 ? 0 : Infinity)
-            : voltage / resistance;
+        message =
+            `Current = ${Number(answer.toPrecision(10))} A`;
+    }
 
-        if (!Number.isFinite(result)) {
-            ohmsResult.textContent =
-                "Current cannot be calculated with these values.";
-            return;
-        }
-
-        message = `Current = ${Number(result.toPrecision(10))} A`;
-
-    } else {
+    // Calculate resistance: R = V / I.
+    else {
         if (current === 0) {
             ohmsResult.textContent =
                 "Resistance cannot be calculated when current is zero.";
             return;
         }
 
-        result = voltage / current;
-        message = `Resistance = ${Number(result.toPrecision(10))} Ω`;
+        answer = voltage / current;
+
+        message =
+            `Resistance = ${Number(answer.toPrecision(10))} Ω`;
     }
 
-    if (!Number.isFinite(result)) {
-        ohmsResult.textContent = "The result is too large to calculate.";
+    if (!Number.isFinite(answer)) {
+        ohmsResult.textContent =
+            "The result is too large to calculate.";
         return;
     }
 
     ohmsResult.textContent = message;
 }
 
-function openOhmsLaw() {
-    const calculator = document.getElementById("ohmsCalculator");
-
-    // Hide the Unit Converter if it is open.
-    document.getElementById("converter").classList.remove("active");
-
-    // Show the Ohm's Law Calculator.
-    calculator.classList.add("active");
-    calculator.scrollIntoView({ behavior: "smooth" });
-}
 
 function clearOhmsLaw() {
     document.getElementById("voltage").value = "";
@@ -178,42 +303,37 @@ function clearOhmsLaw() {
         "Enter any two values to calculate the third.";
 }
 
-// ===== SERIES & PARALLEL RESISTANCE CALCULATOR =====
 
-function openResistanceCalculator() {
-    // Hide the other calculators.
-    document.getElementById("converter").classList.remove("active");
-
-    document.getElementById("ohmsCalculator").classList.remove("active");
-
-    // Show this calculator.
-    const calculator = document.getElementById("resistanceCalculator");
-
-    calculator.classList.add("active");
-
-    calculator.scrollIntoView({ behavior: "smooth" });
-}
+// =============================================
+// 4. SERIES & PARALLEL RESISTANCE CALCULATOR
+// =============================================
 
 
 function calculateResistance() {
     const type = document.getElementById("circuitType").value;
 
-    const input = document.getElementById("resistorValues").value.trim();
+    const input =
+        document.getElementById("resistorValues").value.trim();
 
-    const result = document.getElementById("resistanceResult");
+    const result =
+        document.getElementById("resistanceResult");
 
-    // Check whether the input is empty.
-    if (input === "") {
+    if (!input) {
         result.textContent = "Please enter resistor values.";
         return;
     }
 
-    // Convert the comma-separated values into numbers.
-    const resistors = input.split(",").map(value => value.trim()).map(Number);
+    // Convert comma-separated values to numbers.
+    const resistors = input
+        .split(",")
+        .map(value => value.trim())
+        .map(Number);
 
-    // Check that every value is a valid positive resistance.
+    // All resistance values must be positive and finite.
     if (
-        resistors.some(value => !Number.isFinite(value) || value <= 0)
+        resistors.some(value =>
+            !Number.isFinite(value) || value <= 0
+        )
     ) {
         result.textContent =
             "Enter valid positive resistance values separated by commas.";
@@ -223,16 +343,13 @@ function calculateResistance() {
     let totalResistance;
 
     if (type === "series") {
-
-        // Series: add all resistances.
+        // Series: R = R1 + R2 + R3 + ...
         totalResistance = resistors.reduce(
             (total, resistance) => total + resistance,
             0
         );
-
     } else {
-
-        // Parallel: reciprocal of the sum of reciprocals.
+        // Parallel: 1/R = 1/R1 + 1/R2 + ...
         totalResistance = 1 / resistors.reduce(
             (total, resistance) => total + 1 / resistance,
             0
@@ -240,7 +357,8 @@ function calculateResistance() {
     }
 
     if (!Number.isFinite(totalResistance)) {
-        result.textContent = "The result is too large to calculate.";
+        result.textContent =
+            "The result is too large to calculate.";
         return;
     }
 
@@ -258,9 +376,12 @@ function clearResistance() {
         "Your equivalent resistance will appear here.";
 }
 
-// ===== RESISTOR COLOR CODE CALCULATOR =====
 
-// Color digits used in resistor markings.
+// =============================================
+// 5. RESISTOR COLOR CODE CALCULATOR
+// =============================================
+
+
 const resistorDigits = {
     Black: 0,
     Brown: 1,
@@ -274,7 +395,7 @@ const resistorDigits = {
     White: 9
 };
 
-// Multiplier values in ohms.
+
 const resistorMultipliers = {
     Black: 1,
     Brown: 10,
@@ -289,7 +410,7 @@ const resistorMultipliers = {
     Silver: 0.01
 };
 
-// Tolerance values.
+
 const resistorTolerances = {
     Brown: 1,
     Red: 2,
@@ -306,6 +427,10 @@ const resistorTolerances = {
 function populateColorDropdown(id, colorOptions) {
     const dropdown = document.getElementById(id);
 
+    if (!dropdown) {
+        return;
+    }
+
     dropdown.innerHTML = "";
 
     colorOptions.forEach(color => {
@@ -319,7 +444,7 @@ function populateColorDropdown(id, colorOptions) {
 }
 
 
-// Initialize all four bands.
+// Initialize all four resistor bands.
 function initializeColorCalculator() {
     const digitColors = Object.keys(resistorDigits);
     const multiplierColors = Object.keys(resistorMultipliers);
@@ -330,33 +455,30 @@ function initializeColorCalculator() {
     populateColorDropdown("band3", multiplierColors);
     populateColorDropdown("band4", toleranceColors);
 
-    // Common example: Brown, Black, Red, Gold = 1 kΩ ±5%.
-    document.getElementById("band1").value = "Brown";
-    document.getElementById("band2").value = "Black";
-    document.getElementById("band3").value = "Red";
-    document.getElementById("band4").value = "Gold";
+    // Default example: Brown, Black, Red, Gold = 1 kΩ ±5%.
+    const band1 = document.getElementById("band1");
+    const band2 = document.getElementById("band2");
+    const band3 = document.getElementById("band3");
+    const band4 = document.getElementById("band4");
+
+    if (band1) band1.value = "Brown";
+    if (band2) band2.value = "Black";
+    if (band3) band3.value = "Red";
+    if (band4) band4.value = "Gold";
 }
 
 
-// Show the calculator and hide other calculators.
-function openColorCalculator() {
-    document.getElementById("converter").classList.remove("active");
-    document.getElementById("ohmsCalculator").classList.remove("active");
-    document.getElementById("resistanceCalculator").classList.remove("active");
-
-    const calculator = document.getElementById("colorCalculator");
-
-    calculator.classList.add("active");
-    calculator.scrollIntoView({ behavior: "smooth" });
-}
-
-
-// Calculate resistance from the four selected bands.
 function calculateColorCode() {
-    const band1 = document.getElementById("band1").value;
-    const band2 = document.getElementById("band2").value;
-    const band3 = document.getElementById("band3").value;
-    const band4 = document.getElementById("band4").value;
+    const band1 = document.getElementById("band1")?.value;
+    const band2 = document.getElementById("band2")?.value;
+    const band3 = document.getElementById("band3")?.value;
+    const band4 = document.getElementById("band4")?.value;
+
+    const result = document.getElementById("colorResult");
+
+    if (!band1 || !band2 || !band3 || !band4 || !result) {
+        return;
+    }
 
     const firstDigit = resistorDigits[band1];
     const secondDigit = resistorDigits[band2];
@@ -366,10 +488,9 @@ function calculateColorCode() {
     const resistance =
         (firstDigit * 10 + secondDigit) * multiplier;
 
-    const result = document.getElementById("colorResult");
-
     if (!Number.isFinite(resistance)) {
-        result.textContent = "Unable to calculate this resistance.";
+        result.textContent =
+            "Unable to calculate this resistance.";
         return;
     }
 
@@ -382,7 +503,8 @@ function calculateColorCode() {
         formattedResistance =
             `${Number((resistance / 1000).toPrecision(6))} kΩ`;
     } else {
-        formattedResistance = `${Number(resistance.toPrecision(6))} Ω`;
+        formattedResistance =
+            `${Number(resistance.toPrecision(6))} Ω`;
     }
 
     const lowerLimit = resistance * (1 - tolerance / 100);
@@ -391,27 +513,43 @@ function calculateColorCode() {
     result.innerHTML =
         `Resistance: ${formattedResistance}<br>` +
         `Tolerance: ±${tolerance}%<br>` +
-        `Minimum: ${lowerLimit} Ω<br>` +
-        `Maximum: ${upperLimit} Ω`;
+        `Minimum: ${Number(lowerLimit.toPrecision(10))} Ω<br>` +
+        `Maximum: ${Number(upperLimit.toPrecision(10))} Ω`;
 }
 
 
-// Reset the calculator to the example colors.
 function clearColorCalculator() {
-    document.getElementById("band1").value = "Brown";
-    document.getElementById("band2").value = "Black";
-    document.getElementById("band3").value = "Red";
-    document.getElementById("band4").value = "Gold";
+    const band1 = document.getElementById("band1");
+    const band2 = document.getElementById("band2");
+    const band3 = document.getElementById("band3");
+    const band4 = document.getElementById("band4");
+    const result = document.getElementById("colorResult");
 
-    document.getElementById("colorResult").textContent =
-        "Your resistance will appear here.";
+    if (band1) band1.value = "Brown";
+    if (band2) band2.value = "Black";
+    if (band3) band3.value = "Red";
+    if (band4) band4.value = "Gold";
+
+    if (result) {
+        result.textContent = "Your resistance will appear here.";
+    }
 }
 
 
-// Initialize the dropdowns when the page loads.
+// =============================================
+// 6. INITIALIZE CALCULATORS
+// =============================================
+
+// Set up the Unit Converter dropdowns.
+updateUnits();
+
+// Set up the Resistor Color Code dropdowns.
 initializeColorCalculator();
 
-// ===== ELECTRIC GLITCH CLICK EFFECT =====
+
+// =============================================
+// 7. NEON GLITCH BUTTON EFFECT
+// =============================================
 
 document.addEventListener("click", function (event) {
     const button = event.target.closest("button");
@@ -420,7 +558,7 @@ document.addEventListener("click", function (event) {
         return;
     }
 
-    // Restart the animation even when the same button is clicked repeatedly.
+    // Restart the effect when the button is clicked.
     button.classList.remove("glitch");
 
     void button.offsetWidth;
